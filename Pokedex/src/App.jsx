@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import './index.css'
+import Card from './components/Card'
 
 function App() {
 
@@ -21,10 +22,10 @@ function App() {
   useEffect(() => {
     async function fetchData() {
       const data = await getPokemonData('https://pokeapi.co/api/v2/pokemon?limit=20')
-      console.log(data);
       setNextUrl(data.next)
       setPrevUrl(data.previous)
       setPokemon(data.results)
+      console.log(pokemon);
       setLoading(false)
     }
     fetchData()
@@ -32,11 +33,17 @@ function App() {
 
 
 
-
   return (
     <div>
-      { loading ? <h1>Loading...</h1>
-        :(<h1>Data is Fetched</h1>)
+      { loading ? <h1>Loading...</h1>:(
+        <>
+          <div className='pokemon-container'>
+              {pokemon.map((pokemon , i) => {
+                return <Card key={i} pokemon= {pokemon}/>
+              })}
+          </div>
+        </>  
+        )
       }
     </div>
   )
