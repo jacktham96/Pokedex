@@ -4,15 +4,16 @@ import Card from './components/Card'
 
 function App() {
 
-  const [pokemon , setPokemon] = useState([])
+  const [pokemonData , setPokemonData] = useState([])
   const [nexturl , setNexturl] = useState('')
   const [prevurl , setPrevurl] = useState('')
   const [loading , setLoading] = useState(true)
 
   const getAllPokemon = async () => {
-    const response = await fetch('https://pokeapi.co/api/v2/pokemon?limit=20')
+    const response = await fetch('https://pokeapi.co/api/v2/pokemon/')
     const data = await response.json()
 
+    console.log(data);
     setNexturl(data.next)
     setPrevurl(data.previous)
     setLoading(false)
@@ -21,27 +22,23 @@ function App() {
     function createPokemonObject (result) {
       result.forEach(async (pokemon) => {
         const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon.name}`)
-        const data = await response.json()
-        setPokemon(prevState => [...prevState, data])
+        const objectData = await response.json()
+        setPokemonData(prevState => [...prevState, objectData])
       })
     }
-
     createPokemonObject(data.results)
-    await console.log(pokemon);
-
   }
 
 
   useEffect(() => {
     getAllPokemon()
+    setLoading(false)
   }, [])
-
-
 
 
   return (
     <div className='pokemon-container'>
-      {pokemon.map((pokemon,index) => 
+      {pokemonData.map((pokemon,index) => 
         <Card 
         key={index} 
         id={pokemon.id}

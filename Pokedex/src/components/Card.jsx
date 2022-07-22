@@ -2,7 +2,7 @@ import React from 'react'
 
 const Card = ({id , name , image , type}) => {
   return (
-    <div className='pokemon-container'>
+    <div className='pokemonInfo'>
       <div>
         <small>#0{id}</small>
       </div>
