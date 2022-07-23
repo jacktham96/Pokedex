@@ -6,6 +6,11 @@ module.exports = {
   ],
   theme: {
     extend: {
+
+      backgroundImage:{
+        'pokeBG': "url('./assets/images/container_bg.png')",
+      },
+
       animation: {
         fade: 'transition duration-200	ease-in-out',
       },
